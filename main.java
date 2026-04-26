@@ -1,73 +1,73 @@
-abstract class Crypto {
+abstract class Inventaris {
     // ENCAPSULATION
-    private double price;
-    private String currency;
+    private String namaBarang;
+    private int jumlah;
 
-    public Crypto(double price, String currency) {
-        this.price = price;
-        this.currency = currency;
+    public Inventaris(String namaBarang, int jumlah) {
+        this.namaBarang = namaBarang;
+        this.jumlah = jumlah;
     }
 
-    public double getPrice() {
-        return price;
+    public String getNamaBarang() {
+        return namaBarang;
     }
 
-    public String getCurrency() {
-        return currency;
+    public int getJumlah() {
+        return jumlah;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
     }
 
     // ABSTRACTION
-    abstract void getPriceInfo();
+    abstract void infoBarang();
 }
 
 // INHERITANCE
-class Bitcoin extends Crypto {
+class Laptop extends Inventaris {
 
-    public Bitcoin(double price, String currency) {
-        super(price, currency);
+    public Laptop(String namaBarang, int jumlah) {
+        super(namaBarang, jumlah);
     }
 
     // POLYMORPHISM
     @Override
-    void getPriceInfo() {
-        System.out.println("Bitcoin price: " + getPrice() + " " + getCurrency());
+    void infoBarang() {
+        System.out.println("Laptop: " + getNamaBarang() + " | Stok: " + getJumlah());
     }
 }
 
-class Ethereum extends Crypto {
+class Router extends Inventaris {
 
-    public Ethereum(double price, String currency) {
-        super(price, currency);
+    public Router(String namaBarang, int jumlah) {
+        super(namaBarang, jumlah);
     }
 
     // POLYMORPHISM
     @Override
-    void getPriceInfo() {
-        System.out.println("Ethereum price: " + getPrice() + " " + getCurrency());
+    void infoBarang() {
+        System.out.println("Router: " + getNamaBarang() + " | Stok: " + getJumlah());
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        // POLYMORPHISM (reference Crypto, object beda-beda)
-        Crypto btc = new Bitcoin(1000000000, "IDR");
-        Crypto eth = new Ethereum(50000000, "IDR");
+        // POLYMORPHISM
+        Inventaris barang1 = new Laptop("Asus ROG", 10);
+        Inventaris barang2 = new Router("Mikrotik RB750", 5);
 
-        btc.getPriceInfo();
-        eth.getPriceInfo();
+        barang1.infoBarang();
+        barang2.infoBarang();
 
-        System.out.println("---- Update Harga ----");
+        System.out.println("---- Peminjaman ----");
 
-        // ENCAPSULATION (ubah lewat setter)
-        btc.setPrice(1200000000);
-        eth.setPrice(55000000);
+        // ENCAPSULATION (ubah stok)
+        barang1.setJumlah(8); // dipinjam 2
+        barang2.setJumlah(3); // dipinjam 2
 
-        btc.getPriceInfo();
-        eth.getPriceInfo();
+        barang1.infoBarang();
+        barang2.infoBarang();
     }
 }
