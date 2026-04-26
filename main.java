@@ -1,73 +1,73 @@
-abstract class Crypto {
+abstract class Saham {
     // ENCAPSULATION
-    private double price;
-    private String currency;
+    private String nama;
+    private double harga;
 
-    public Crypto(double price, String currency) {
-        this.price = price;
-        this.currency = currency;
+    public Saham(String nama, double harga) {
+        this.nama = nama;
+        this.harga = harga;
     }
 
-    public double getPrice() {
-        return price;
+    public String getNama() {
+        return nama;
     }
 
-    public String getCurrency() {
-        return currency;
+    public double getHarga() {
+        return harga;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setHarga(double harga) {
+        this.harga = harga;
     }
 
     // ABSTRACTION
-    abstract void getPriceInfo();
+    abstract void infoSaham();
 }
 
 // INHERITANCE
-class Bitcoin extends Crypto {
+class SahamTeknologi extends Saham {
 
-    public Bitcoin(double price, String currency) {
-        super(price, currency);
+    public SahamTeknologi(String nama, double harga) {
+        super(nama, harga);
     }
 
     // POLYMORPHISM
     @Override
-    void getPriceInfo() {
-        System.out.println("Bitcoin price: " + getPrice() + " " + getCurrency());
+    void infoSaham() {
+        System.out.println("Saham Teknologi: " + getNama() + " | Harga: " + getHarga());
     }
 }
 
-class Ethereum extends Crypto {
+class SahamPerbankan extends Saham {
 
-    public Ethereum(double price, String currency) {
-        super(price, currency);
+    public SahamPerbankan(String nama, double harga) {
+        super(nama, harga);
     }
 
     // POLYMORPHISM
     @Override
-    void getPriceInfo() {
-        System.out.println("Ethereum price: " + getPrice() + " " + getCurrency());
+    void infoSaham() {
+        System.out.println("Saham Bank: " + getNama() + " | Harga: " + getHarga());
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        // POLYMORPHISM (reference Crypto, object beda-beda)
-        Crypto btc = new Bitcoin(1000000000, "IDR");
-        Crypto eth = new Ethereum(50000000, "IDR");
+        // POLYMORPHISM
+        Saham s1 = new SahamTeknologi("GOTO", 120);
+        Saham s2 = new SahamPerbankan("BBCA", 9000);
 
-        btc.getPriceInfo();
-        eth.getPriceInfo();
+        s1.infoSaham();
+        s2.infoSaham();
 
         System.out.println("---- Update Harga ----");
 
-        // ENCAPSULATION (ubah lewat setter)
-        btc.setPrice(1200000000);
-        eth.setPrice(55000000);
+        // ENCAPSULATION
+        s1.setHarga(130);
+        s2.setHarga(9200);
 
-        btc.getPriceInfo();
-        eth.getPriceInfo();
+        s1.infoSaham();
+        s2.infoSaham();
     }
 }
